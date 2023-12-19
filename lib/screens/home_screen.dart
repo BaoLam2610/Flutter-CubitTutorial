@@ -1,4 +1,5 @@
 import 'package:cubit_tutorial/screens/home_cubit.dart';
+import 'package:cubit_tutorial/widgets/item_person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,29 +69,40 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: Center(
-            child: Column(
-              children: [
-                Text('Count: ${state.count}'),
-                ElevatedButton(
-                  onPressed: () {
-                    _homeCubit.plusCount();
-                  },
-                  child: const Text('Plus'),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _homeCubit.minusCount();
-                  },
-                  child: const Text('Minus'),
-                ),
-              ],
-            ),
-          ),
+          body: _buildList(state),
         );
+      },
+    );
+  }
+
+  _buildCount(HomeState state) => Center(
+        child: Column(
+          children: [
+            Text('Count: ${state.count}'),
+            ElevatedButton(
+              onPressed: () {
+                _homeCubit.plusCount();
+              },
+              child: const Text('Plus'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _homeCubit.minusCount();
+              },
+              child: const Text('Minus'),
+            ),
+          ],
+        ),
+      );
+
+  _buildList(HomeState state) {
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return const ItemPerson();
       },
     );
   }
